@@ -1,0 +1,161 @@
+{
+    "Name": "Brewmaster.Composite.FailoverCluster",
+    "Description": "Creates a windows failover cluster with quorum configuration 'node and file share majority'.",
+    "Parameters": [
+        {
+            "Name": "Region",
+            "Type": "String",
+            "TypeHint": "AzureRegionName",
+            "Description": "Name of Azure region."
+        },
+        {
+            "Name": "AffinityGroup",
+            "Type": "String",
+            "TypeHint": "AzureAffinityGroupName",
+            "Description": "Name of Azure affinity group."
+        },
+        {
+            "Name": "VnetName",
+            "Type": "String",
+            "Description": "Azure Virtual Network for setting up windows failover cluster."
+        },
+        {
+            "Name": "DiskStore",
+            "Type": "String",
+            "TypeHint": "AzureStorageName",
+            "Description": "Name of Azure storage account for creating VM disks. Will be created only if it does not already exists. If it exists then it should lie in the specified affinity group."
+        },
+        {
+            "Name": "ADCloudService",
+            "Type": "String",
+            "TypeHint": "AzureCloudServiceName",
+            "Description": "Name of the Azure Cloud Service to which Active Directory VMs are to be deployed. Will be created only if it does not already exists. If it exists then it should lie in the specified affinity group."
+        },
+        {
+            "Name": "FQDN",
+            "Type": "String",
+            "TypeHint": "domain",
+            "Description": "Fully qualified domain name for setting up active directory in the specified Azure Virtual Network.",
+            "Minimum": 1,
+            "Maximum": 64
+        },
+        {
+            "Name": "Domain",
+            "Type": "String",
+            "TypeHint": "domain",
+            "Description": "NetBios domain name.",
+            "Minimum": 1,
+            "Maximum": 64
+        },
+        {
+            "Name": "ADVMSize",
+            "Type": "String",
+            "TypeHint": "AzureRoleSize",
+            "Description": "Size of the Active Directory VMs.",
+            "Default": "Small"
+        },
+        {
+            "Name": "FailoverClusterCloudService",
+            "Type": "String",
+            "TypeHint": "AzureCloudServiceName",
+            "Description": "Name of the Azure Cloud Service to which failover cluster VMs will be deployed."
+        },
+        {
+            "Name": "ClusterNodeVMSize",
+            "Type": "String",
+            "TypeHint": "AzureRoleSize",
+            "Description": "Size of the failover cluster node VMs.",
+            "Default": "Small"
+        },
+        {
+            "Name": "ClusterName",
+            "Type": "String",
+            "Description": "Name of Windows Failover Cluster (on top of which SQL Availability group will be created). This has to be unique in the domain(setup within the virtual network).",
+            "Minimum": 1,
+            "Maximum": 32
+        },
+        {
+            "Name": "NumberOfClusterNodes",
+            "Type": "Number",
+            "Description": "No of cluster nodes. A minimum of two are required to create a cluster.",
+            "Default": 2,
+            "Minimum": 2
+        },
+        {
+            "Name": "AdminName",
+            "Type": "String",
+            "TypeHint": "username",
+            "Description": "Name of local administrator account.",
+            "Minimum": 1,
+            "Maximum": 64
+        },
+        {
+            "Name": "AdminPassword",
+            "Type": "String",
+            "TypeHint": "password",
+            "Description": "Password of local administrator account.",
+            "MaskValue": true,
+            "AllowedRegex": "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$",
+            "AllowedDescription": "Please provide a complex password comprised of minimum 8 characters with atleast 1 alphabet, 1 number and 1 special character."
+        },
+        {
+            "Name": "DSRMPassPhrase",
+            "Type": "String",
+            "TypeHint": "password",
+            "Description": "Safemode Password for domain",
+            "MaskValue": true,
+            "AllowedRegex": "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@$!%*#?&])[A-Za-z\\d$@$!%*#?&]{8,}$",
+            "AllowedDescription": "Please provide a complex password comprised of minimum 8 characters with atleast 1 alphabet, 1 number and 1 special character."
+        },
+        {
+            "Name": "ClusterNodeNamePrefix",
+            "Type": "String",
+            "Description": "Prefix for the cluster virtual machine name. If left empty, the node type will be used.",
+            "Default": "fcnode"
+        }
+    ],
+    "ParameterMaps": [
+        {
+            "ParameterName": "ADCloudService",
+            "PackageName": "ad",
+            "TemplateParameterName": "CloudService"
+        },
+        {
+            "ParameterName": "ADVMSize",
+            "PackageName": "ad",
+            "TemplateParameterName": "VMSize"
+        },
+        {
+            "ParameterName": "FailoverClusterCloudService",
+            "PackageName": "fc",
+            "TemplateParameterName": "CloudService"
+        },
+        {
+            "ParameterName": "ClusterNodeVMSize",
+            "PackageName": "fc",
+            "TemplateParameterName": "VMSize"
+        },
+        {
+            "ParameterName": "AdminName",
+            "PackageName": "fc",
+            "TemplateParameterName": "DomainJoinUserName"
+        },
+        {
+            "ParameterName": "AdminPassword",
+            "PackageName": "fc",
+            "TemplateParameterName": "DomainJoinUserPassword"
+        }
+    ],
+    "Packages": [
+        {
+            "Name": "ad",
+            "PackageId": "133b0572-3ae3-5a63-b484-0a6af9599fea",
+            "Commit": "master"
+        },
+        {
+            "Name": "fc",
+            "PackageId": "762b3ab6-ef02-5ecb-bd29-3e7ec890e75d",
+            "Commit": "master"
+        }
+    ]
+}
