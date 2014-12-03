@@ -118,36 +118,36 @@
     "ParameterMaps": [
         {
             "ParameterName": "ADCloudService",
-            "PackageName": "ad",
+            "TemplateName": "ad",
             "TemplateParameterName": "CloudService"
         },
         {
             "ParameterName": "ADVMSize",
-            "PackageName": "ad",
+            "TemplateName": "ad",
             "TemplateParameterName": "VMSize"
         },
         {
             "ParameterName": "FailoverClusterCloudService",
-            "PackageName": "fc",
+            "TemplateName": "fc",
             "TemplateParameterName": "CloudService"
         },
         {
             "ParameterName": "ClusterNodeVMSize",
-            "PackageName": "fc",
+            "TemplateName": "fc",
             "TemplateParameterName": "VMSize"
         },
         {
             "ParameterName": "AdminName",
-            "PackageName": "fc",
+            "TemplateName": "fc",
             "TemplateParameterName": "DomainJoinUserName"
         },
         {
             "ParameterName": "AdminPassword",
-            "PackageName": "fc",
+            "TemplateName": "fc",
             "TemplateParameterName": "DomainJoinUserPassword"
         }
     ],
-    "Packages": [
+    "Templates": [
         {
             "Name": "ad",
             "PackageId": "133b0572-3ae3-5a63-b484-0a6af9599fea",
