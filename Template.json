@@ -150,12 +150,12 @@
     "Templates": [
         {
             "Name": "ad",
-            "PackageId": "133b0572-3ae3-5a63-b484-0a6af9599fea",
+            "TemplateId": "133b0572-3ae3-5a63-b484-0a6af9599fea",
             "Commit": "master"
         },
         {
             "Name": "fc",
-            "PackageId": "762b3ab6-ef02-5ecb-bd29-3e7ec890e75d",
+            "TemplateId": "762b3ab6-ef02-5ecb-bd29-3e7ec890e75d",
             "Commit": "master"
         }
     ]
